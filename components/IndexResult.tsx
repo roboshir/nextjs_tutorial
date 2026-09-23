@@ -4,13 +4,13 @@ import IndexChart from "./IndexChart";
 
 const formatChange = (change: number) => `${change > 0 ? "+" : ""}${change.toFixed(2)}%`;
 
-export default function IndexResult({ data, selectedStocks, indexName }: { data: IndexPoint[]; selectedStocks: Stock[]; indexName: string }) {
+export default function IndexResult({ data, selectedStocks, indexName, eyebrow = "YOUR INDEX", badgeLabel = "計算完了", onClose }: { data: IndexPoint[]; selectedStocks: Stock[]; indexName: string; eyebrow?: string; badgeLabel?: string; onClose?: () => void }) {
   const weight = 100 / selectedStocks.length;
   return (
     <section className="result-section" aria-live="polite">
       <div className="section-heading">
-        <div><span className="eyebrow blue">YOUR INDEX</span><h2>{indexName}</h2></div>
-        <span className="complete-badge">計算完了</span>
+        <div><span className="eyebrow blue">{eyebrow}</span><h2>{indexName}</h2></div>
+        <div className="result-actions"><span className="complete-badge">{badgeLabel}</span>{onClose && <button type="button" className="close-result" onClick={onClose}>一覧に戻る</button>}</div>
       </div>
 
       <div className="metric-grid">
